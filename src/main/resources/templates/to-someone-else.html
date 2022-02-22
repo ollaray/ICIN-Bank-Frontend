@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="commons/fragments :: header" />
+
+<body class="hold-transition sidebar-mini" data-spy="scroll" >
+	<div class="wrapper">
+
+		<!-- Navbar -->
+		<div th:replace="commons/fragments :: top-nav" />
+		<!-- /.navbar -->
+
+		<!-- Main Sidebar Container -->
+		<div th:replace="commons/fragments :: aside" />
+
+		<!-- Content Wrapper. Contains page content -->
+		<div class="content-wrapper">
+
+			<!-- Main content -->
+			<div class="content">
+
+				<div class="container-fluid">
+
+					<div th:replace="commons/fragments :: ui-components" />
+					<div class="rowx">
+						<!-- /.col-md-6 -->
+						<div class="container">
+							<div class="col-md-6">
+								<div class="card card-primary">
+									<div class="card-header">
+										<h3 class="card-title">INTER-PERSON TRANSFER</h3>
+									</div>
+									<!-- /.card-header -->
+									<form th:action="@{/transfer/to-someone-else}" method="POST" role="form">
+										<div class="alert alert-success" th:if="${msg}">
+											<span th:text="${msg}"></span>
+										</div>
+										<div class="card-body">
+											<div class="form-group">
+												<label for="transferFrom">Recipient</label>
+													
+												<select name="recipientName" id="recipientName" th:value="${recipientName}"
+													class="form-control" required="required">
+													<option disabled="disabled" selected="selected">---Select Recipient---</option>
+													<option data-th-each="row : ${recipientList}" data-th-text="${row.name}" th-value="${row.name}"></option>
+													
+												</select>
+											</div>
+											<div class="form-group">
+												<label for="transferTo">Account To Transfer From:</label>
+													
+												<select name="accountType" id="accountType" th:value="${accountType}"
+													class="form-control" required="required">
+													<option disabled="disabled" selected="selected" >---Select Account Type---</option>
+														
+													<option value="Primary">Primary</option>
+													<option value="Savings">Savings</option>
+
+												</select>
+											</div>
+											<label>Transfer Amount</label>
+											<div class="form-group input-group">
+
+
+												<div class="input-group-prepend">
+													<span class="input-group-text">
+														<i class="fas fa-dollar-sign"></i>
+													</span>
+												</div>
+												<input type="text" th:value="${amount}" class="form-control"
+													name="amount" id="amount" placeholder="Enter Amount"
+													aria-label="Amount(Nearest dollar)" required="required">
+												<div class="input-group-append">
+													<span class="input-group-text">.00</span>
+												</div>
+											</div>
+											<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+
+
+										</div>
+										<!-- /.card-body -->
+
+										<div class="card-footer">
+											<button type="submit" class="btn btn-primary">Transfer</button>
+										</div>
+									</form>
+									<!-- /.card-body -->
+								</div>
+							</div>
+						</div>
+
+						<!-- /.col-md-6 -->
+					</div>
+					<!-- /.row -->
+				</div><!-- /.container-fluid -->
+			</div>
+			<!-- /.content -->
+		</div>
+		<!-- /.content-wrapper -->
+
+		<!-- Main Footer -->
+		<div th:replace="commons/fragments :: footer" />
+	</div>
+	<!-- ./wrapper -->
+
+	<!-- REQUIRED SCRIPTS -->
+
+	<div th:replace="commons/fragments :: scripts" />
+</body>
+
+</html>

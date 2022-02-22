@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="commons/fragments :: header" />
+
+<body class="hold-transition sidebar-mini">
+	<div class="wrapper">
+
+		<!-- Navbar -->
+		<div th:replace="commons/fragments :: top-nav" />
+		<!-- /.navbar -->
+
+		<!-- Main Sidebar Container -->
+		<div th:replace="commons/fragments :: aside" />
+
+		<!-- Content Wrapper. Contains page content -->
+		<div class="content-wrapper">
+
+			<!-- Main content -->
+			<div class="content">
+
+				<div class="container-fluid">
+					<div th:replace="commons/fragments :: ui-components" />
+
+					<div class="row">
+						<!-- /.col-md-6 -->
+						<div class="container">
+							<div class="col-md-8">
+								<div class="card card-primary">
+									<div class="card-header">
+										<h3 class="card-title">RECIPIENT INFORMATION</h3>
+									</div>
+									<!-- /.card-header -->
+									<form th:action="@{/transfer/recipient/save}" method="post">
+										<input type="hidden" name="id" th:value="${recipient.id}" />
+										<br />
+										<div class="alert alert-success" th:if="${msg}">
+											<span th:text="${msg}"></span>
+										</div>
+										<div class="form-group input-group col-md-6">
+											<div class="input-group-prepend">
+												<div class="input-group-text">
+													<span class="fas fa-user"></span>
+												</div>
+											</div>
+											<input type="text" class="form-control" name="name"
+												th:value="${recipient.name}" placeholder="Name" roleId="name" id="name"
+												required="required">
+											
+										</div>
+										
+										
+										<div class="form-group input-group  col-md-6">
+											<div class="input-group-prepend">
+												<div class="input-group-text">
+													<span class="fas fa-envelope"></span>
+												</div>
+											</div>
+											<input type="email" class="form-control" name="email"
+												th:value="${recipient.email}" placeholder="Email" roleId="email" id="email"
+												required="required">
+
+											
+										</div>
+										
+										<div class=" form-group input-group  col-md-6">
+											<div class="input-group-prepend">
+												<div class="input-group-text">
+													<span class="fas fa-phone"></span>
+												</div>
+											</div>
+											<input type="text" class="form-control" name="phone"
+												th:value="${recipient.phone}" placeholder="xxx-xxxx-xxxx" roleId="phone"
+												id="phone">
+											
+										</div>
+										
+										<div class=" form-group input-group  col-md-6">
+											<div class="input-group-prepend">
+												<div class="input-group-text">
+													<span class="fas fa-users"></span>
+												</div>
+											</div>
+											<input type="text" class="form-control" name="accountNumber"
+												th:value="${recipient.accountNumber}" placeholder="Account Number" roleId="account"
+												id="accountNumber" required="required">
+
+										</div>
+									
+										<div class="form-group input-group col-md-6">
+											<div class="input-group-prepend">
+												<div class="input-group-text">
+													<span class="fas fa-pencil"></span>
+												</div>
+											</div>
+											<input type="text" class="form-control" name="description"
+												th:value="${recipient.description}" placeholder="Description"
+												roleId="description" id="description" required="required">
+											
+										</div>
+										
+										<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+										<div class="form-group input-group col-md-6">
+											<button type="submit" class="btn btn-primary">Save</button>
+										</div>
+										
+									</form>
+									<!-- /.card-body -->
+								</div>
+							</div>
+						</div>
+
+						<!-- /.col-md-6 -->
+					</div>
+					<div class="row">
+						<!-- /.col-md-6 -->
+						<div class="col-md-12">
+							<div class="card">
+								<div class="card-header">
+									<h3 class="card-title">RECIPIENT LIST</h3>
+								</div>
+								<!-- /.card-header -->
+								<div class="card-body">
+									<table id="dataList" class="table table-bordered table-striped">
+										<thead>
+											<tr>
+												<th>S/N</th>
+												<th>Name</th>
+												<th>Email</th>
+												<th>Phone No.</th>
+												<th>Account Number</th>
+												<th>Description</th>
+												<th>Action</th>
+											</tr>
+										</thead>
+										<tbody>
+											<tr data-th-each="row : ${recipientList}">
+												<td></td>
+												<td data-th-text="${row.name}"></td>
+												<td data-th-text="${row.email}"></td>
+												<td data-th-text="${row.phone}"></td>
+												<td data-th-text="${row.accountNumber}"></td>
+												<td data-th-text="${row.description}"></td>
+												<td>
+												<a th:href="@{/transfer/recipient/edit?recipientName=}+${row.name}" 
+												class="btn btn-info" role="button">
+													Edit
+												</a>
+												<a th:href="@{/transfer/recipient/delete?recipientName=}+${row.name}" 
+												class="btn btn-danger" role="button" onclick="return confirm('Are you sure you want to delete this item')">
+													Delete
+												</a>
+												</td>
+											</tr>
+
+										</tbody>
+										<tfoot>
+											<tr>
+												<th>S/N</th>
+												<th>Name</th>
+												<th>Email</th>
+												<th>Phone No.</th>
+												<th>Account Number</th>
+												<th>Description</th>
+												<th>Action</th>
+												
+											</tr>
+										</tfoot>
+									</table>
+								</div>
+								<!-- /.card-body -->
+							</div>
+						</div>
+
+						<!-- /.col-md-6 -->
+					</div>
+					<!-- /.row -->
+				</div><!-- /.container-fluid -->
+			</div>
+			<!-- /.content -->
+		</div>
+		<!-- /.content-wrapper -->
+
+		<!-- Main Footer -->
+		<div th:replace="commons/fragments :: footer" />
+	</div>
+	<!-- ./wrapper -->
+
+	<!-- REQUIRED SCRIPTS -->
+
+	<div th:replace="commons/fragments :: scripts" />
+	<script>
+		$(function () {
+			$("#dataList").DataTable();
+		});
+
+		var addSerialNumber = function () {
+			$('table tr').each(function (index) {
+				$(this).find('td:nth-child(1)').html(index);
+			});
+		};
+
+		addSerialNumber();
+	</script>
+</body>
+
+</html>

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="commons/fragments :: header" />
+  
+<body class="hold-transition sidebar-mini">
+<div class="wrapper">
+
+  <!-- Navbar -->
+	<div th:replace="commons/fragments :: top-nav" />
+  <!-- /.navbar -->
+
+  <!-- Main Sidebar Container -->
+<div th:replace="commons/fragments :: aside" />
+
+  <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+   
+    <!-- Main content -->
+    <div class="content">
+    
+      <div class="container-fluid">
+      	 
+   			<!--ui-->
+   		<div th:replace="commons/fragments :: ui-components" />
+        <div class="row">
+        	<!-- /.col-md-6 -->
+          <div class="col-md-12">
+            <div class="card card-primary card-outline">
+              <div class="card-header">
+                <h5 class="m-0">DASHBOARD</h5>
+              </div>
+              <div class="card-body">
+                <h6 class="card-title">Welcome</h6>
+
+                <p class="card-text">Welcome To ICIN Online Banking Platform</p>
+                <a href="#" class="btn btn-warning">Transact</a>
+              </div>
+            </div>
+          </div>
+         
+          <!-- /.col-md-6 -->
+        </div>
+        <!-- /.row -->
+      </div><!-- /.container-fluid -->
+    </div>
+    <!-- /.content -->
+  </div>
+  <!-- /.content-wrapper -->
+
+  <!-- Main Footer -->
+ <div th:replace="commons/fragments :: footer" />
+</div>
+<!-- ./wrapper -->
+
+<!-- REQUIRED SCRIPTS -->
+
+<div th:replace="commons/fragments :: scripts" />
+</body>
+</html>

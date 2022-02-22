@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="commons/fragments :: header" />
+
+<body class="hold-transition sidebar-mini">
+	<div class="wrapper">
+
+		<!-- Navbar -->
+		<div th:replace="commons/fragments :: top-nav" />
+		<!-- /.navbar -->
+
+		<!-- Main Sidebar Container -->
+		<div th:replace="commons/fragments :: aside" />
+
+		<!-- Content Wrapper. Contains page content -->
+		<div class="content-wrapper">
+
+			<!-- Main content -->
+			<div class="content">
+
+				<div class="container-fluid">
+				<div th:replace="commons/fragments :: ui-components" />
+					
+					<div class="row">
+						<!-- /.col-md-6 -->
+						<div class="col-md-12">
+							<div class="card">
+								<div class="card-header">
+									<h3 class="card-title">SAVINGS ACCOUNT</h3>
+								</div>
+								<!-- /.card-header -->
+								<div class="card-body">
+									<table id="dataList" class="table table-bordered table-striped">
+										<thead>
+											<tr>
+												<th>S/N</th>
+												<th>Post Date</th>
+												<th>Description</th>
+												<th>Type</th>
+												<th>Status</th>
+												<th>Amount</th>
+												<th>Available Balance</th>
+											</tr>
+										</thead>
+										<tbody>
+											<tr data-th-each="savingsTransaction : ${savingsTransactionList}">
+												<td></td>
+												<td data-th-text="${savingsTransaction.date}"></td>
+												<td data-th-text="${savingsTransaction.description}"></td>
+												<td data-th-text="${savingsTransaction.type}"></td>
+												<td data-th-text="${savingsTransaction.status}"></td>
+												<td data-th-text="${savingsTransaction.amount}"></td>
+												<td data-th-text="${savingsTransaction.availableBalance}"></td>
+											</tr>
+
+										</tbody>
+										<tfoot>
+											<tr>
+												<th>S/N</th>
+												<th>Post Date</th>
+												<th>Description</th>
+												<th>Type</th>
+												<th>Status</th>
+												<th>Amount</th>
+												<th>Available Balance</th>
+											</tr>
+										</tfoot>
+									</table>
+								</div>
+								<!-- /.card-body -->
+							</div>
+						</div>
+
+						<!-- /.col-md-6 -->
+					</div>
+					<!-- /.row -->
+				</div><!-- /.container-fluid -->
+			</div>
+			<!-- /.content -->
+		</div>
+		<!-- /.content-wrapper -->
+
+		<!-- Main Footer -->
+		<div th:replace="commons/fragments :: footer" />
+	</div>
+	<!-- ./wrapper -->
+
+	<!-- REQUIRED SCRIPTS -->
+
+	<div th:replace="commons/fragments :: scripts" />
+	<script>
+		$(function () {
+			$("#dataList").DataTable();
+		});
+
+		var addSerialNumber = function () {
+			$('table tr').each(function (index) {
+				$(this).find('td:nth-child(1)').html(index);
+			});
+		};
+
+		addSerialNumber();
+	</script>
+</body>
+
+</html>
